@@ -11,9 +11,10 @@ import { redirect } from "next/navigation";
 const createTopicSchema = z.object({
   name: z
     .string()
-    .min(3)
-    .regex(/^[a-z]/),
-  description: z.string().min(10),
+    .min(3, { message: "Name must be at least 3 characters" })
+    .regex(/^[a-z]/)
+    .transform((val) => val.replace(/[\s\W-]+/g, "-")),
+  description: z.string().min(5, { message: "Description must be at least 5 characters" }),
 });
 
 interface createTopicFormState {

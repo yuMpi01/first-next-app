@@ -7,7 +7,7 @@ import { db } from "@/db";
 import { paths } from "@/paths";
 
 const createCommentSchema = z.object({
-  content: z.string().min(3),
+  content: z.string().min(3, { message: "Content must be at least 3 characters" }),
 });
 
 interface CreateCommentFormState {
