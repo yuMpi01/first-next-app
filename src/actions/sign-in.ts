@@ -3,5 +3,5 @@
 import * as auth from "@/auth";
 
 export async function signIn() {
-  return auth.signIn("github");
+  await auth.signIn("github");
 }

@@ -4,25 +4,22 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { db } from "@/db";
 import { Adapter } from "@auth/core/adapters";
 
-const GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
-const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
+const AUTH_GITHUB_ID = process.env.AUTH_GITHUB_ID;
+const AUTH_GITHUB_SECRET = process.env.AUTH_GITHUB_SECRET;
 
-if (!GITHUB_CLIENT_ID || !GITHUB_CLIENT_SECRET) {
+if (!AUTH_GITHUB_ID || !AUTH_GITHUB_SECRET) {
   throw new Error("missing sth");
 }
 
 export const {
-  handlers: { GET, POST },
+  handlers,
   auth,
   signIn,
   signOut,
 } = NextAuth({
   adapter: PrismaAdapter(db) as Adapter,
   providers: [
-    GitHub({
-      clientId: GITHUB_CLIENT_ID,
-      clientSecret: GITHUB_CLIENT_SECRET,
-    }),
+    GitHub
   ],
   callbacks: {
     async session({ session, user }) {
